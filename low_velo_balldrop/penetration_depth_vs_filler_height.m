@@ -3,6 +3,7 @@ clc
 clear all
 
 addpath('../plot_tools/');
+addpath('helpers/');
 close all
 height_array = 5:14;
 depth_array = zeros(size(height_array));
@@ -39,18 +40,6 @@ ylim([0, 8]);
 ax = hdl.Parent;
 set(ax, 'XTick', 0:2:16)
 grid on
-% given acceleration find out the time when contact
-% start and the index of such contact
-function [t_c, index_start] = findCollisionStartTime(acc, time)
-for i = 1:length(acc)
-    if abs(acc(i) + 9.8) > 0.01
-        t_c = time(i);
-        index_start = i;
-        break;
-    end
-end
-end
-
 
 % result = csvread('data/result_meshsphere_input_position_14cm.csv');
 % t = result(:,1);
