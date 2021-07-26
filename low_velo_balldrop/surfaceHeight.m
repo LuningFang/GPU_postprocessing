@@ -1,6 +1,6 @@
-H_array = 5:14;
+H_array = 5:18;
 sphere_radius = 0.5;
-result = csvread('input_position_denser.csv', 1, 0);
+result = csvread('/home/luning/Build/force_model/bin/inputPos.csv', 1, 0);
 pos_x = result(:,1);
 pos_y = result(:,2);
 pos_z = result(:,3);
@@ -27,7 +27,7 @@ for ii = 1:length(H_array)
     
 %     scatter3(truncate_pos(:,1), truncate_pos(:,2), truncate_pos(:,3), '.');
     
-    fileName = sprintf('input_position_denser_%02dcm.csv', H);
+    fileName = sprintf('input_position_%02dcm.csv', H);
     csvwrite(fileName, truncate_pos);
     fprintf("write file at height %02dcm\n", H);
 end

@@ -1,16 +1,23 @@
 % return positions of top couple layer of particles where wheel travel
-function trucatedPos = slicingPosition(filename)
+function trucatedPos = slicingPosition(filename, format)
 global particle_diameter
 
-entries = dlmread(filename, ' ');
-x_pos = entries(:,2);
-y_pos = entries(:,3);
-z_pos = entries(:,4);
+if strcmp(format, 'dat') == true
+    entries = dlmread(filename, ' ');
+    x_pos = entries(:,2);
+    y_pos = entries(:,3);
+    z_pos = entries(:,4);
+    
+    
+end
 
-% entries = csvread(filename, 1, 0);
-% x_pos = entries(:,1);
-% y_pos = entries(:,2);
-% z_pos = entries(:,3);
+if strcmp(format, 'csv') == true
+    entries = csvread(filename, 1, 0);
+    x_pos = entries(:,1);
+    y_pos = entries(:,2);
+    z_pos = entries(:,3);
+    
+end
 
 trucatedPos = [];
 z_max = max(z_pos);
