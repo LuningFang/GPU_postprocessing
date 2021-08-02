@@ -11,7 +11,7 @@ particle_diameter = 0.01;
 % fig_name = strcat('fig/cyl_sweep_mus_slip', '.',  'fig');
 
 drawTimePlotsFlag = true;
-home_dir = 'data/hex/';
+home_dir = 'data/hcp_loose/';
 settled_pos_filename = strcat(home_dir, 'checkpoint_settled.dat');
 rig_filename = strcat(home_dir, 'results.dat');
 
@@ -20,13 +20,13 @@ entries = dlmread(settled_pos_filename, ' ');
 x_pos = entries(:,2);
 y_pos = entries(:,3);
 z_pos = entries(:,4);
-
 initial_height = max(z_pos);
 
 
 LW = 3;
 FS = 28;
 drawPlots = true;
+
 rig_result = dlmread(rig_filename, ' ');
 % dlm read gives too many zeros...
 rig_result = rig_result(:,1:2:end);

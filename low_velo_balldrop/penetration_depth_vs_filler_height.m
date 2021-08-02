@@ -1,22 +1,25 @@
-close all
+%close all
 % clc
-clear all
+%clear all
 
+% given 
+figure(1)
 addpath('../plot_tools/');
 addpath('helpers/');
-close all
 height_array = 5:18;
 depth_array = zeros(size(height_array));
 
 gravity = 9.8;
-threshold_acc = 0.01;
+threshold_acc = 0.01; % threshold for determine collision time
 
 spacing = 10;
 
 collision_time_array = zeros(size(height_array));
+peak_acc_array = zeros(size(height_array));
 for ii = 1:length(height_array)
     filler_height = height_array(ii);
-    filename = sprintf('data/result_bcsphere_input_position_%02.0fcm.csv', filler_height);
+    filename = sprintf('data/new_result_input_position_%02.0fcm.csv', filler_height);
+%    filename = sprintf('data/result_bcsphere_input_position_%02.0fcm.csv', filler_height);
     result = csvread(filename);
     time = result(1:spacing:end,1);
     position = result(1:spacing:end,2);
@@ -39,12 +42,15 @@ for ii = 1:length(height_array)
     depth_array(ii) = depth;
     collision_time = t_contact_end - t_contact_start;
     collision_time_array(ii) = collision_time;
+    
+    peak_acc_array(ii) = max(acc);
 end
 
 LW = 2;
 FS = 25;
 MS = 10;
-subplot(2,1,1)
+subplot(3,1,1)
+hold on
 hdl = makePlot(height_array, -depth_array, 'fill height (cm)', 'penetration depth(cm)', '', LW, FS, 'o', MS);
 xlim([0, 20]);
 ylim([0, 8]);
@@ -52,13 +58,24 @@ ax = hdl.Parent;
 set(ax, 'XTick', 0:2:20)
 grid on
 
-subplot(2,1,2)
+subplot(3,1,2)
+hold on
 hdl = makePlot(height_array, collision_time_array * 1000, 'fill height (cm)', 'collision time(ms)', '', LW, FS, 'o', MS);
 xlim([0, 20]);
 ylim([0, 200]);
 ax = hdl.Parent;
 set(ax, 'XTick', 0:2:20)
 grid on
+
+subplot(3,1,3)
+hold on
+hdl = makePlot(height_array, peak_acc_array, 'fill height (cm)', 'peak acceleration (ms^{-2})', '', LW, FS, 'o', MS);
+xlim([0, 20]);
+%ylim([0, 200]);
+ax = hdl.Parent;
+set(ax, 'XTick', 0:2:20)
+grid on
+
 
 % result = csvread('data/result_meshsphere_input_position_14cm.csv');
 % t = result(:,1);
