@@ -10,7 +10,8 @@ height_array = 5:18;
 depth_array = zeros(size(height_array));
 
 gravity = 9.8;
-threshold_acc = 0.01; % threshold for determine collision time
+%threshold_acc = 0.01; % threshold for determine collision time
+threshold_acc = 0.1 * gravity; % threshold for determine collision time
 
 spacing = 10;
 
@@ -18,7 +19,7 @@ collision_time_array = zeros(size(height_array));
 peak_acc_array = zeros(size(height_array));
 for ii = 1:length(height_array)
     filler_height = height_array(ii);
-    filename = sprintf('data/new_result_input_position_%02.0fcm.csv', filler_height);
+    filename = sprintf('data/result_bcsphere_input_position_%02.0fcm.csv', filler_height);
 %    filename = sprintf('data/result_bcsphere_input_position_%02.0fcm.csv', filler_height);
     result = csvread(filename);
     time = result(1:spacing:end,1);
