@@ -15,9 +15,9 @@ addpath('helpers');
 particle_diameter = 0.01;
 wheel_radius = 0.13;
 drawPlots = true;
-home_dir = 'data/sep_1/';
+home_dir = 'data/sep_1_thinner/';
 
-mus_array = [ 0.3 0.4 0.5, 0.6, 0.8];
+mus_array = [ 0.4 0.5, 0.6, 0.7, 0.8 0.9 0.95];
 numTests = length(mus_array);
 
 % data for plotting
@@ -37,6 +37,7 @@ for jj = 1:numTests
     mus = mus_array(jj);
     rig_filename = strcat(home_dir, sprintf('mus=%.1f.dat', mus));
     settled_pos_filename = strcat(home_dir, sprintf('mus=%.1f_settled.dat', mus));
+    settled_pos_filename
     
     entries = dlmread(settled_pos_filename, ' ');
     x_pos = entries(:,2);
