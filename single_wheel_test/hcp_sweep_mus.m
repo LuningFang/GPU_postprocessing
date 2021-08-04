@@ -15,9 +15,10 @@ addpath('helpers');
 particle_diameter = 0.01;
 wheel_radius = 0.13;
 drawPlots = true;
-home_dir = 'data/sep_1_thinner/';
+home_dir = 'data/sep_1/';
 
-mus_array = [ 0.4 0.5, 0.6, 0.7, 0.8 0.9 0.95];
+mus_array = [ 0.3 0.4 0.5, 0.6, 0.8];
+%mus_array = 0.95;
 numTests = length(mus_array);
 
 % data for plotting
@@ -39,23 +40,26 @@ for jj = 1:numTests
     settled_pos_filename = strcat(home_dir, sprintf('mus=%.1f_settled.dat', mus));
     settled_pos_filename
     
-    entries = dlmread(settled_pos_filename, ' ');
-    x_pos = entries(:,2);
-    y_pos = entries(:,3);
-    z_pos = entries(:,4);
-    initial_height = max(z_pos);
+%     entries = dlmread(settled_pos_filename, ' ');
+%     x_pos = entries(:,2);
+%     y_pos = entries(:,3);
+%     z_pos = entries(:,4);
+%     initial_height = max(z_pos);
     
     rig_result = dlmread(rig_filename, ' ');
     % dlm read gives too many zeros...
     rig_result = rig_result(:,1:2:end);
     t = rig_result(:,1);
     pz = rig_result(:,4);
+    pz_init = pz(1);
+    pz = pz_init - pz;
     px = rig_result(:, 2);
     
-    initial_height_array = ones(length(px),1) * initial_height;
+%     initial_height_array = ones(length(px),1) * initial_height;
     
     wheel_radius = 0.13;
-    sinkage = initial_height_array - (pz - wheel_radius);
+%    sinkage = initial_height_array+0.01 - (pz - wheel_radius);
+    sinkage = pz;
     sinkage_ss = steadyState(sinkage);
     sinkage_avg_array(jj) = sinkage_ss.avg;
     sinkage_std_array(jj) = sinkage_ss.dev;
